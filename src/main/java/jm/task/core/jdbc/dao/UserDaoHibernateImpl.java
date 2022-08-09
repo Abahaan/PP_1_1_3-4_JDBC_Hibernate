@@ -65,17 +65,17 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void saveUser(String name, String lastName, byte age) {
         try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            NativeQuery nativeQuery = session.createSQLQuery("INSERT INTO users (name, lastname, age) VALUES (?, ?, ?)");
-            nativeQuery.setParameter(1, name);
-            nativeQuery.setParameter(2, lastName);
-            nativeQuery.setParameter(3, age);
-            nativeQuery.executeUpdate();
-            System.out.println("User с именем – " + name + " добавлен в базу данных");
-            transaction.commit();
 //            transaction = session.beginTransaction();
-//            session.save(new User(name,lastName,age));
+//            NativeQuery nativeQuery = session.createSQLQuery("INSERT INTO users (name, lastname, age) VALUES (?, ?, ?)");
+//            nativeQuery.setParameter(1, name);
+//            nativeQuery.setParameter(2, lastName);
+//            nativeQuery.setParameter(3, age);
+//            nativeQuery.executeUpdate();
+//            System.out.println("User с именем – " + name + " добавлен в базу данных");
 //            transaction.commit();
+            transaction = session.beginTransaction();
+            session.save(new User(name,lastName,age));
+            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
             try {
